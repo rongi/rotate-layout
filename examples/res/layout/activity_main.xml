@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<com.github.rongi.rotate_layout.layout.RotateLayout
+		android:id="@+id/form1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dip"
+		android:background="#550000ff" >
+
+		<include
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_angle="0"
+			layout="@layout/small_form"
+			android:padding="5dip" />
+	</com.github.rongi.rotate_layout.layout.RotateLayout>
+
+	<com.github.rongi.rotate_layout.layout.RotateLayout
+		android:id="@+id/form2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/form1"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dip"
+		android:background="#550000ff" >
+
+		<include
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_angle="90"
+			layout="@layout/small_form"
+			android:padding="5dip" />
+	</com.github.rongi.rotate_layout.layout.RotateLayout>
+
+	<com.github.rongi.rotate_layout.layout.RotateLayout
+		android:id="@+id/form3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/form2"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dip"
+		android:background="#550000ff" >
+
+		<include
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_angle="180"
+			layout="@layout/small_form"
+			android:padding="5dip" />
+	</com.github.rongi.rotate_layout.layout.RotateLayout>
+
+</RelativeLayout>
