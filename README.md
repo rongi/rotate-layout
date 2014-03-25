@@ -31,5 +31,5 @@ Features
 ========
 
 1. Handles all touch events in correct way. You press the same button you touch!
-2. Layout measures itself in a correct way. This means that if not-rotated view is 50x100, then 90 degree rotated it will measure itself as 100x50 and can fit in another layouts with this dimensions.
+2. Layout measures itself in a correct way. This means that if original view is 50x100, then 90 degree rotated it will measure itself as 100x50 and can fit in another layouts with this dimensions.
 3. Supports only power of 90 degrees rotation angles atm
