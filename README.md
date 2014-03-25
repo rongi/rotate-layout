@@ -25,6 +25,11 @@ Usage
 
 Voila! Your layout will be rotated 90 degrees.
 
+Example
+=======
+
+[![Example](https://github.com/rongi/rotate-layout/docs/screenshot.png)](#features)
+
 Features
 ========
 
