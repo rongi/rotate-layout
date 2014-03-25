@@ -7,7 +7,7 @@ Usage
 =====
 
 1. Add to you project as Android library
-2. In you layout file add
+2. In your layout file add
 
 ```xml 
 <com.github.rongi.rotate_layout.layout.RotateLayout
