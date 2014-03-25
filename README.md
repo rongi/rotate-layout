@@ -11,14 +11,14 @@ Usage
 
 ```xml 
 <com.github.rongi.rotate_layout.layout.RotateLayout
-	app="http://schemas.android.com/apk/res-auto" <!-- Don't forget to set namespace -->
+	**app="http://schemas.android.com/apk/res-auto"**
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content" >
 
 	<YourLayoutHere
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_angle="90">	<!-- Specify rotate angle here -->
+		**app:layout_angle="90"**>	<!-- Specify rotate angle here -->
 	</YourLayoutHere>
 </com.github.rongi.rotate_layout.layout.RotateLayout>
 ```
