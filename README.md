@@ -3,6 +3,8 @@ Rotate Layout
 
 Android layout that can rotate it's child
 
+[![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot2.png)](#Example)
+
 Usage
 =====
 
@@ -24,11 +26,6 @@ Usage
 ```
 
 Voila! Your layout will be rotated 90 degrees.
-
-Example
-=======
-
-[![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot2.png)](#Example)
 
 Features
 ========
