@@ -1,7 +1,7 @@
 Rotate Layout
 =============
 
-Android layout that can rotate it's child
+Custom layout that can rotate it's view
 
 [![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot2.png)](#Example)
 
