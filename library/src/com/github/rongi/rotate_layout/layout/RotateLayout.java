@@ -110,8 +110,12 @@ public class RotateLayout extends ViewGroup {
     	viewTouchPoint[1] = event.getY();
     	
     	rotateMatrix.mapPoints(childTouchPoint, viewTouchPoint);
+
         event.setLocation(childTouchPoint[0], childTouchPoint[1]);
-        return super.dispatchTouchEvent(event);
+        boolean result = super.dispatchTouchEvent(event);
+        event.setLocation(viewTouchPoint[0], viewTouchPoint[1]);
+
+        return result;
     }
     
     @Override
