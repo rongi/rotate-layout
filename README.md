@@ -27,6 +27,19 @@ Usage
 
 Voila! Your layout will be rotated 90 degrees.
 
+Download
+========
+
+```groovy
+repositories {
+    maven { url 'https://dl.bintray.com/nickes/maven' }
+}
+
+dependencies {
+    compile 'rongi.rotate-layout:rotate-layout:1.0.1'
+}
+```
+
 Features
 ========
 
