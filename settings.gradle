@@ -1,2 +1,2 @@
 include ':examples'
-include ':library'
+include ':rotate-layout'
