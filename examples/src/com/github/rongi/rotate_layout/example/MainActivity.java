@@ -2,7 +2,6 @@ package com.github.rongi.rotate_layout.example;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.github.rongi.rotate_layout.example.R;
 
 public class MainActivity extends Activity {
 

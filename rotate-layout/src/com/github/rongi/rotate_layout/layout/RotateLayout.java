@@ -1,7 +1,5 @@
 package com.github.rongi.rotate_layout.layout;
 
-import com.github.rongi.rotate_layout.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -13,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
+import com.github.rongi.rotate_layout.R;
 
 public class RotateLayout extends ViewGroup {
 	
@@ -74,7 +74,7 @@ public class RotateLayout extends ViewGroup {
 
     @Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
-    	if(angleChanged) {
+    	if(angleChanged || changed) {
     		final RectF layoutRect = tempRectF1;
     		final RectF layoutRectRotated = tempRectF2;
     		layoutRect.set(0, 0, r - l, b - t);
@@ -83,7 +83,7 @@ public class RotateLayout extends ViewGroup {
     		layoutRectRotated.round(viewRectRotated);
     		angleChanged = false;
     	}
-    	
+
     	final View view = getView();
     	if(view != null) {
     		view.layout(viewRectRotated.left, viewRectRotated.top, viewRectRotated.right, viewRectRotated.bottom);
