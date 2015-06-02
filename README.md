@@ -32,7 +32,7 @@ Download
 
 ```groovy
 repositories {
-    maven { url 'https://dl.bintray.com/nickes/maven' }
+    jcenter()
 }
 
 dependencies {
