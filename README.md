@@ -8,8 +8,7 @@ Custom layout that can rotate it's view
 Usage
 =====
 
-1. Add to you project as Android library
-2. In your layout file add
+In your layout file add
 
 ```xml 
 <com.github.rongi.rotate_layout.layout.RotateLayout
