@@ -24,6 +24,7 @@ public class RotateLayout extends ViewGroup {
 			super(context, attrs);
 			final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateLayout_Layout);
 			angle = a.getInt(R.styleable.RotateLayout_Layout_layout_angle, 0);
+			a.recycle();
 		}
 
 		public LayoutParams(ViewGroup.LayoutParams layoutParams) {
@@ -56,7 +57,8 @@ public class RotateLayout extends ViewGroup {
         	}
 
         	if(Math.abs(angle % 180) == 90) {
-        		measureChild(view, heightMeasureSpec, widthMeasureSpec);
+				//noinspection SuspiciousNameCombination
+				measureChild(view, heightMeasureSpec, widthMeasureSpec);
         		setMeasuredDimension(
         			resolveSize(view.getMeasuredHeight(), widthMeasureSpec), 
         			resolveSize(view.getMeasuredWidth(), heightMeasureSpec));
