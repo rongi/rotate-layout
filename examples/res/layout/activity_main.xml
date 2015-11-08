@@ -2,53 +2,66 @@
 				xmlns:app="http://schemas.android.com/apk/res-auto"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
-
-	<com.github.rongi.rotate_layout.layout.RotateLayout
-		android:id="@+id/form1"
+	
+	<TextView
+		android:id="@+id/hint"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_centerHorizontal="true"
+		android:text="click on a form to rotate it"
+		/>
+
+	<com.github.rongi.rotate_layout.layout.RotateLayout
+		android:id="@+id/form1_container"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/hint"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dip"
-		android:background="#550000ff" >
+		android:background="#550000ff"
+		app:angle="0">
 
 		<include
+			android:id="@+id/form1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:layout_angle="0"
 			layout="@layout/small_form"
 			android:padding="5dip" />
 	</com.github.rongi.rotate_layout.layout.RotateLayout>
 
 	<com.github.rongi.rotate_layout.layout.RotateLayout
-		android:id="@+id/form2"
+		android:id="@+id/form2_container"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/form1"
+		android:layout_below="@id/form1_container"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dip"
-		android:background="#550000ff" >
+		android:background="#550000ff"
+		app:angle="90">
 
 		<include
+			android:id="@+id/form2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:layout_angle="90"
 			layout="@layout/small_form"
 			android:padding="5dip" />
 	</com.github.rongi.rotate_layout.layout.RotateLayout>
 
 	<com.github.rongi.rotate_layout.layout.RotateLayout
-		android:id="@+id/form3"
+		android:id="@+id/form3_container"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/form2"
+		android:layout_below="@id/form2_container"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dip"
-		android:background="#550000ff" >
+		android:background="#550000ff"
+		app:angle="180">
 
 		<include
+			android:id="@+id/form3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:layout_angle="180"
 			layout="@layout/small_form"
 			android:padding="5dip" />
 	</com.github.rongi.rotate_layout.layout.RotateLayout>

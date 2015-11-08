@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<declare-styleable name="RotateLayout_Layout">
-		<attr name="layout_angle" format="integer" />
+	<declare-styleable name="RotateLayout">
+		<!-- Child view of this layout will be rotated by this angle. -->
+		<!-- If angle is not multiple of 90 it will be reduced to the multiple of 90. -->
+		<!-- For example 89 will be reduced to 0, 91 will be reduced to 90. -->
+		<attr name="angle" format="integer" />
 	</declare-styleable>
 
 </resources>

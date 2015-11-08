@@ -12,14 +12,14 @@ In your layout file add
 
 ```xml 
 <com.github.rongi.rotate_layout.layout.RotateLayout
-	app="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" >
+	android:layout_height="wrap_content"
+	app:angle="90">	<!-- Specify rotate angle here -->
 
 	<YourLayoutHere
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_angle="90">	<!-- Specify rotate angle here -->
+		android:layout_height="wrap_content">
 	</YourLayoutHere>
 </com.github.rongi.rotate_layout.layout.RotateLayout>
 ```
