@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	 * Clicking on a form will rotate it
 	 */
 	@OnClick({R.id.form1_container, R.id.form2_container, R.id.form3_container}) void onForm1ContainerClick(RotateLayout rotateLayout) {
-		int newAngle = rotateLayout.getAngle() + 360 + 120;
+		int newAngle = rotateLayout.getAngle() + 90;
 		rotateLayout.setAngle(newAngle);
 	}
 
