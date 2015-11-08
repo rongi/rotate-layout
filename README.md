@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile 'rongi.rotate-layout:rotate-layout:1.0.1'
+    compile 'rongi.rotate-layout:rotate-layout:2.0.0'
 }
 ```
 
