@@ -3,6 +3,11 @@ apply plugin: 'com.android.library'
 version = "2.0.0"
 
 ext {
+
+    // Bintray manual http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+    // To deploy:
+    // ./gradlew install
+    // ./gradlew bintrayUpload
     bintrayRepo = 'maven'
     bintrayName = 'rotate-layout'
 
