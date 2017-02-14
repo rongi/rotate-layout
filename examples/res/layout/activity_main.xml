@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="click on a form to rotate it"
+        android:text="@string/click_on_a_form_to_rotate_it"
         />
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -19,7 +19,7 @@
         android:layout_below="@id/hint"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dip"
-        android:background="#550000ff"
+        android:background="#BAE1FF"
         app:angle="0">
 
         <include
@@ -37,8 +37,8 @@
         android:layout_below="@id/form1_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dip"
-        android:background="#550000ff"
-        app:angle="90">
+        android:background="#BAE1FF"
+        app:angle="75">
 
         <include
             android:id="@+id/form2"
@@ -55,7 +55,7 @@
         android:layout_below="@id/form2_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dip"
-        android:background="#550000ff"
+        android:background="#BAE1FF"
         app:angle="180">
 
         <include

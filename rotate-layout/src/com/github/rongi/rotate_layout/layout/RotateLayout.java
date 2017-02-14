@@ -14,7 +14,12 @@ import android.view.ViewParent;
 
 import com.github.rongi.rotate_layout.R;
 
+import static android.view.View.MeasureSpec.UNSPECIFIED;
+import static java.lang.Math.PI;
 import static java.lang.Math.abs;
+import static java.lang.Math.ceil;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * Rotates first view in this layout by multiple of 90 angle.
@@ -57,8 +62,7 @@ public class RotateLayout extends ViewGroup {
     super(context, attrs);
 
     final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateLayout);
-    final int angleFromAttrs = a.getInt(R.styleable.RotateLayout_angle, 0);
-    angle = fixAngle(angleFromAttrs);
+    angle = a.getInt(R.styleable.RotateLayout_angle, 0);
     a.recycle();
 
     setWillNotDraw(false);
@@ -77,9 +81,8 @@ public class RotateLayout extends ViewGroup {
    * For example 89 will be reduced to 0, 91 will be reduced to 90.
    */
   public void setAngle(int angle) {
-    int fixedAngle = fixAngle(angle);
-    if (this.angle != fixedAngle) {
-      this.angle = fixedAngle;
+    if (this.angle != angle) {
+      this.angle = angle;
       angleChanged = true;
       requestLayout();
       invalidate();
@@ -99,19 +102,30 @@ public class RotateLayout extends ViewGroup {
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    final View view = getView();
-    if (view != null) {
+    final View child = getView();
+    if (child != null) {
       if (abs(angle % 180) == 90) {
         //noinspection SuspiciousNameCombination
-        measureChild(view, heightMeasureSpec, widthMeasureSpec);
+        measureChild(child, heightMeasureSpec, widthMeasureSpec);
         setMeasuredDimension(
-          resolveSize(view.getMeasuredHeight(), widthMeasureSpec),
-          resolveSize(view.getMeasuredWidth(), heightMeasureSpec));
+          resolveSize(child.getMeasuredHeight(), widthMeasureSpec),
+          resolveSize(child.getMeasuredWidth(), heightMeasureSpec));
+      } else if (abs(angle % 180) == 0) {
+        measureChild(child, widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(
+          resolveSize(child.getMeasuredWidth(), widthMeasureSpec),
+          resolveSize(child.getMeasuredHeight(), heightMeasureSpec));
       } else {
-        measureChild(view, widthMeasureSpec, heightMeasureSpec);
+        int childWithMeasureSpec = MeasureSpec.makeMeasureSpec(0, UNSPECIFIED);
+        int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(0, UNSPECIFIED);
+        measureChild(child, childWithMeasureSpec, childHeightMeasureSpec);
+
+        int measuredWidth = (int) ceil(child.getMeasuredWidth() * abs(cos(angle_c())) + child.getMeasuredHeight() * abs(sin(angle_c())));
+        int measuredHeight = (int) ceil(child.getMeasuredWidth() * abs(sin(angle_c())) + child.getMeasuredHeight() * abs(cos(angle_c())));
+
         setMeasuredDimension(
-          resolveSize(view.getMeasuredWidth(), widthMeasureSpec),
-          resolveSize(view.getMeasuredHeight(), heightMeasureSpec));
+          resolveSize(measuredWidth, widthMeasureSpec),
+          resolveSize(measuredHeight, heightMeasureSpec));
       }
     } else {
       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -120,19 +134,26 @@ public class RotateLayout extends ViewGroup {
 
   @Override
   protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    int layoutWidth = r - l;
+    int layoutHeight = b - t;
+
     if (angleChanged || changed) {
       final RectF layoutRect = tempRectF1;
+      layoutRect.set(0, 0, layoutWidth, layoutHeight);
       final RectF layoutRectRotated = tempRectF2;
-      layoutRect.set(0, 0, r - l, b - t);
       rotateMatrix.setRotate(angle, layoutRect.centerX(), layoutRect.centerY());
       rotateMatrix.mapRect(layoutRectRotated, layoutRect);
       layoutRectRotated.round(viewRectRotated);
       angleChanged = false;
     }
 
-    final View view = getView();
-    if (view != null) {
-      view.layout(viewRectRotated.left, viewRectRotated.top, viewRectRotated.right, viewRectRotated.bottom);
+    final View child = getView();
+    if (child != null) {
+      int childLeft = (layoutWidth - child.getMeasuredWidth()) / 2;
+      int childTop = (layoutHeight - child.getMeasuredHeight()) / 2;
+      int childRight = childLeft + child.getMeasuredWidth();
+      int childBottom = childTop + child.getMeasuredHeight();
+      child.layout(childLeft, childTop, childRight, childBottom);
     }
   }
 
@@ -165,11 +186,12 @@ public class RotateLayout extends ViewGroup {
   }
 
   /**
-   * Takes any angle, makes it valid one for this view.
-   * This means multiple of 90.
+   * Circle angle, from 0 to TAU
    */
-  private static int fixAngle(int angle) {
-    return (angle / 90) * 90;
+  private Double angle_c() {
+    // True circle constant, not that petty imposter known as "PI"
+    double TAU = 2 * PI;
+    return TAU * angle / 360;
   }
 
 }

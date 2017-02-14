@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
                 android:padding="5dip">
 
     <ImageView
@@ -12,18 +13,18 @@
         android:src="@drawable/ic_launcher"/>
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="100dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image"
-        android:text="OK"/>
-
-    <Button
         android:id="@+id/button2"
         android:layout_width="100dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
-        android:layout_toRightOf="@+id/button1"
-        android:text="CANCEL"/>
+        android:text="@android:string/cancel"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_toRightOf="@+id/button2"
+        android:text="@android:string/ok"/>
 
 </RelativeLayout>
