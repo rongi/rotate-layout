@@ -30,7 +30,7 @@ Download
 ========
 
 ```groovy
-    compile 'rongi.rotate-layout:rotate-layout:3.0.0'
+compile 'rongi.rotate-layout:rotate-layout:3.0.0'
 ```
 
 Features
