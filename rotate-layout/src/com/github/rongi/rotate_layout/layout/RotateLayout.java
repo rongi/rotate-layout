@@ -14,6 +14,8 @@ import android.view.ViewParent;
 
 import com.github.rongi.rotate_layout.R;
 
+import static java.lang.Math.abs;
+
 /**
  * Rotates first view in this layout by multiple of 90 angle.
  * <p>
@@ -98,7 +100,7 @@ public class RotateLayout extends ViewGroup {
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     final View view = getView();
     if (view != null) {
-      if (Math.abs(angle % 180) == 90) {
+      if (abs(angle % 180) == 90) {
         //noinspection SuspiciousNameCombination
         measureChild(view, heightMeasureSpec, widthMeasureSpec);
         setMeasuredDimension(
