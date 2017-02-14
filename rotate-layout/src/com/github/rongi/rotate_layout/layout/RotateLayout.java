@@ -16,158 +16,157 @@ import com.github.rongi.rotate_layout.R;
 
 /**
  * Rotates first view in this layout by multiple of 90 angle.
- *
+ * <p>
  * This layout is supposed to have only one view. Behaviour of the views after the first one
  * is not defined.
- *
+ * <p>
  * Rotate angles can be only multiple of 90.
  * If angle is not multiple of 90 it will be reduced to the multiple of 90.
  * For example 89 will be reduced to 0, 91 will be reduced to 90.
- *
+ * <p>
  * XML attributes
  * See {@link com.github.rongi.rotate_layout.R.styleable#RotateLayout RotateLayout Attributes},
- *
  */
 public class RotateLayout extends ViewGroup {
 
-	public RotateLayout(Context context) {
-		this(context, null);
-	}
+  private int angle;
 
-	public RotateLayout(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+  private final Matrix rotateMatrix = new Matrix();
 
-	public RotateLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs);
+  private final Rect viewRectRotated = new Rect();
 
-		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateLayout);
-		final int angleFromAttrs = a.getInt(R.styleable.RotateLayout_angle, 0);
-		angle = fixAngle(angleFromAttrs);
-		a.recycle();
+  private final RectF tempRectF1 = new RectF();
+  private final RectF tempRectF2 = new RectF();
 
-		setWillNotDraw(false);
-	}
+  private final float[] viewTouchPoint = new float[2];
+  private final float[] childTouchPoint = new float[2];
 
-	/**
-	 * Returns current angle of this layout
-	 */
-	public int getAngle() {
-		return angle;
-	}
+  private boolean angleChanged = true;
 
-	/**
-	 * Sets current angle of this layout.
-	 * If angle is not multiple of 90 it will be reduced to the multiple of 90.
-	 * For example 89 will be reduced to 0, 91 will be reduced to 90.
-	 */
-	public void setAngle(int angle) {
-		int fixedAngle = fixAngle(angle);
-		if (this.angle != fixedAngle) {
-			this.angle = fixedAngle;
-			angleChanged = true;
-			requestLayout();
-		}
-	}
+  public RotateLayout(Context context) {
+    this(context, null);
+  }
 
-	/**
-	 * Returns
-	 */
-	public View getView() {
-		if (getChildCount() > 0) {
-			return getChildAt(0);
-		} else {
-			return null;
-		}
-	}
+  public RotateLayout(Context context, AttributeSet attrs) {
+    this(context, attrs, 0);
+  }
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		final View view = getView();
-		if (view != null) {
-			if (Math.abs(angle % 180) == 90) {
-				//noinspection SuspiciousNameCombination
-				measureChild(view, heightMeasureSpec, widthMeasureSpec);
-				setMeasuredDimension(
-					resolveSize(view.getMeasuredHeight(), widthMeasureSpec),
-					resolveSize(view.getMeasuredWidth(), heightMeasureSpec));
-			} else {
-				measureChild(view, widthMeasureSpec, heightMeasureSpec);
-				setMeasuredDimension(
-					resolveSize(view.getMeasuredWidth(), widthMeasureSpec),
-					resolveSize(view.getMeasuredHeight(), heightMeasureSpec));
-			}
-		} else {
-			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		}
-	}
+  public RotateLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs);
 
-	@Override
-	protected void onLayout(boolean changed, int l, int t, int r, int b) {
-		if (angleChanged || changed) {
-			final RectF layoutRect = tempRectF1;
-			final RectF layoutRectRotated = tempRectF2;
-			layoutRect.set(0, 0, r - l, b - t);
-			rotateMatrix.setRotate(angle, layoutRect.centerX(), layoutRect.centerY());
-			rotateMatrix.mapRect(layoutRectRotated, layoutRect);
-			layoutRectRotated.round(viewRectRotated);
-			angleChanged = false;
-		}
+    final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateLayout);
+    final int angleFromAttrs = a.getInt(R.styleable.RotateLayout_angle, 0);
+    angle = fixAngle(angleFromAttrs);
+    a.recycle();
 
-		final View view = getView();
-		if (view != null) {
-			view.layout(viewRectRotated.left, viewRectRotated.top, viewRectRotated.right, viewRectRotated.bottom);
-		}
-	}
+    setWillNotDraw(false);
+  }
 
-	@Override
-	protected void dispatchDraw(Canvas canvas) {
-		canvas.save();
-		canvas.rotate(-angle, getWidth() / 2f, getHeight() / 2f);
-		super.dispatchDraw(canvas);
-		canvas.restore();
-	}
+  /**
+   * Returns current angle of this layout
+   */
+  public int getAngle() {
+    return angle;
+  }
 
-	@Override
-	public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
-		invalidate();
-		return super.invalidateChildInParent(location, dirty);
-	}
+  /**
+   * Sets current angle of this layout.
+   * If angle is not multiple of 90 it will be reduced to the multiple of 90.
+   * For example 89 will be reduced to 0, 91 will be reduced to 90.
+   */
+  public void setAngle(int angle) {
+    int fixedAngle = fixAngle(angle);
+    if (this.angle != fixedAngle) {
+      this.angle = fixedAngle;
+      angleChanged = true;
+      requestLayout();
+    }
+  }
 
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		viewTouchPoint[0] = event.getX();
-		viewTouchPoint[1] = event.getY();
+  /**
+   * Returns
+   */
+  public View getView() {
+    if (getChildCount() > 0) {
+      return getChildAt(0);
+    } else {
+      return null;
+    }
+  }
 
-		rotateMatrix.mapPoints(childTouchPoint, viewTouchPoint);
+  @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    final View view = getView();
+    if (view != null) {
+      if (Math.abs(angle % 180) == 90) {
+        //noinspection SuspiciousNameCombination
+        measureChild(view, heightMeasureSpec, widthMeasureSpec);
+        setMeasuredDimension(
+          resolveSize(view.getMeasuredHeight(), widthMeasureSpec),
+          resolveSize(view.getMeasuredWidth(), heightMeasureSpec));
+      } else {
+        measureChild(view, widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(
+          resolveSize(view.getMeasuredWidth(), widthMeasureSpec),
+          resolveSize(view.getMeasuredHeight(), heightMeasureSpec));
+      }
+    } else {
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+  }
 
-		event.setLocation(childTouchPoint[0], childTouchPoint[1]);
-		boolean result = super.dispatchTouchEvent(event);
-		event.setLocation(viewTouchPoint[0], viewTouchPoint[1]);
+  @Override
+  protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    if (angleChanged || changed) {
+      final RectF layoutRect = tempRectF1;
+      final RectF layoutRectRotated = tempRectF2;
+      layoutRect.set(0, 0, r - l, b - t);
+      rotateMatrix.setRotate(angle, layoutRect.centerX(), layoutRect.centerY());
+      rotateMatrix.mapRect(layoutRectRotated, layoutRect);
+      layoutRectRotated.round(viewRectRotated);
+      angleChanged = false;
+    }
 
-		return result;
-	}
+    final View view = getView();
+    if (view != null) {
+      view.layout(viewRectRotated.left, viewRectRotated.top, viewRectRotated.right, viewRectRotated.bottom);
+    }
+  }
 
-	/**
-	 * Takes any angle, makes it valid one for this view.
-	 * This means multiple of 90.
-	 */
-	private static int fixAngle(int angle) {
-		return (angle / 90) * 90;
-	}
+  @Override
+  protected void dispatchDraw(Canvas canvas) {
+    canvas.save();
+    canvas.rotate(-angle, getWidth() / 2f, getHeight() / 2f);
+    super.dispatchDraw(canvas);
+    canvas.restore();
+  }
 
-	private int angle;
+  @Override
+  public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
+    invalidate();
+    return super.invalidateChildInParent(location, dirty);
+  }
 
-	private final Matrix rotateMatrix = new Matrix();
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent event) {
+    viewTouchPoint[0] = event.getX();
+    viewTouchPoint[1] = event.getY();
 
-	private final Rect viewRectRotated = new Rect();
+    rotateMatrix.mapPoints(childTouchPoint, viewTouchPoint);
 
-	private final RectF tempRectF1 = new RectF();
-	private final RectF tempRectF2 = new RectF();
+    event.setLocation(childTouchPoint[0], childTouchPoint[1]);
+    boolean result = super.dispatchTouchEvent(event);
+    event.setLocation(viewTouchPoint[0], viewTouchPoint[1]);
 
-	private final float[] viewTouchPoint = new float[2];
-	private final float[] childTouchPoint = new float[2];
+    return result;
+  }
 
-	private boolean angleChanged = true;
+  /**
+   * Takes any angle, makes it valid one for this view.
+   * This means multiple of 90.
+   */
+  private static int fixAngle(int angle) {
+    return (angle / 90) * 90;
+  }
 
 }
