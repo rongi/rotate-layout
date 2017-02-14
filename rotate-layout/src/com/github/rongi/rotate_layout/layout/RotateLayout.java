@@ -28,7 +28,7 @@ import static java.lang.Math.sin;
  * is not defined.
  * <p>
  * XML attributes
- * See {@link com.github.rongi.rotate_layout.R.styleable#RotateLayout RotateLayout Attributes},
+ * See com.github.rongi.rotate_layout.R.styleable#RotateLayout RotateLayout Attributes,
  */
 public class RotateLayout extends ViewGroup {
 
