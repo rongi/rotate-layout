@@ -22,14 +22,10 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 /**
- * Rotates first view in this layout by multiple of 90 angle.
+ * Rotates first view in this layout by specified angle.
  * <p>
  * This layout is supposed to have only one view. Behaviour of the views after the first one
  * is not defined.
- * <p>
- * Rotate angles can be only multiple of 90.
- * If angle is not multiple of 90 it will be reduced to the multiple of 90.
- * For example 89 will be reduced to 0, 91 will be reduced to 90.
  * <p>
  * XML attributes
  * See {@link com.github.rongi.rotate_layout.R.styleable#RotateLayout RotateLayout Attributes},
@@ -77,8 +73,6 @@ public class RotateLayout extends ViewGroup {
 
   /**
    * Sets current angle of this layout.
-   * If angle is not multiple of 90 it will be reduced to the multiple of 90.
-   * For example 89 will be reduced to 0, 91 will be reduced to 90.
    */
   public void setAngle(int angle) {
     if (this.angle != angle) {
