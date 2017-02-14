@@ -84,7 +84,7 @@ public class RotateLayout extends ViewGroup {
   }
 
   /**
-   * Returns
+   * Returns this layout's child or null if there is no any
    */
   public View getView() {
     if (getChildCount() > 0) {
