@@ -3,7 +3,7 @@ Rotate Layout
 
 Custom layout that can rotate it's view
 
-[![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot2.png)](#Example)
+[![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot5.png)](#Example)
 
 Usage
 =====
