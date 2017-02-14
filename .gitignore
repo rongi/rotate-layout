@@ -8,7 +8,4 @@ local.properties
 .DS_Store
 
 build
-gradle
-gradlew
-gradlew.bat
 .gradle
