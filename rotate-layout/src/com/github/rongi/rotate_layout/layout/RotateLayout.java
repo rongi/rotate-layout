@@ -82,6 +82,7 @@ public class RotateLayout extends ViewGroup {
       this.angle = fixedAngle;
       angleChanged = true;
       requestLayout();
+      invalidate();
     }
   }
 
