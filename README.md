@@ -1,7 +1,7 @@
 Rotate Layout
 =============
 
-Custom layout that can rotate it's view
+A custom layout that can rotate it's view
 
 [![Example](https://github.com/rongi/rotate-layout/raw/master/docs/screenshot5.png)](#Example)
 
@@ -30,12 +30,12 @@ Download
 ========
 
 ```groovy
-compile 'rongi.rotate-layout:rotate-layout:3.0.0'
+implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
 ```
 
 Features
 ========
 
-1. Handles all touch events in correct way. You press the same button you touch!
-2. Layout measures itself in a correct way. This means that if original view is 50x100, then 90 degree rotated it will measure itself as 100x50 and can fit in another layouts with this dimensions.
+1. The rotated view receives correct touch events.
+2. The bounding box is also rotated. This means that if the view was 100x50px before the rotation, then after 90 degrees rotation it will be 50x100px and can fit into another layout with this dimensions.
 
